@@ -1,0 +1,16 @@
+body {
+    background-color: #DFDFFF;
+}
+
+.buyInput {
+    margin-left: 20px;
+}
+
+/* merge these 2 to a class */
+#modal_buy_footer_info {
+    float: left;
+}
+
+#modal_rental_footer_info {
+    float: left;
+}

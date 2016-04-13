@@ -1,0 +1,30 @@
+{% extends "skeleton.html" %}
+{% block innercontent %}
+  <form action="" method=post class="form-horizontal">
+    <h2>Innlogging for Alpinklubben</h2>
+    <div class="control-group">
+        <div class="controls">
+          <input type="text" id="username" name="username" class="input-xlarge" placeholder="Brukernavn" required>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+          <input type="password" id="password" name="password" class="input-xlarge" placeholder="Passord" required>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            Husk meg:
+            <input type="checkbox" id="remember_me" name="remember_me">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-success">Logg inn</button>
+        </div>
+    </div>
+  </form>
+{% endblock %}
