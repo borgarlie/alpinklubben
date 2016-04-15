@@ -16,6 +16,7 @@ def information():
     return render_template('information.html', page="information")
 
 
+# should have more parameters
 @main_resource.route('/profile')
 @login_required
 def profile():

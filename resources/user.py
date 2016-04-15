@@ -1,6 +1,6 @@
 # coding=utf-8
-from flask.ext.login import logout_user, login_user
-from flask import redirect, url_for, request, flash, Blueprint, render_template
+from flask.ext.login import logout_user, login_user, current_user
+from flask import redirect, url_for, request, flash, Blueprint, render_template, session
 
 from entities.shared import db
 from entities.user import User
@@ -44,3 +44,38 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@user_resource.route('/change_password', methods=['POST'])
+def change_password():
+    new_password = request.form['new_password']
+    if new_password != request.form['new_password_repeat']:
+        flash(u"Nytt passord stemmer ikke med det repiterte passordet")
+        return redirect(url_for('main_resource.profile'))
+    user_id = current_user.get_id()
+    old_password = request.form['old_password']
+    # must hash old password
+    registered_user = User.query.filter_by(id=user_id, password=old_password).first()
+    if registered_user is None:
+        flash(u"Gammelt passord stemmer ikke")
+        return redirect(url_for('main_resource.profile'))
+    # must hash new password first
+    registered_user.password = new_password
+    db.session.commit()
+    flash(u"Ditt passord er nå endret")
+    return redirect(url_for('main_resource.profile'))
+
+
+@user_resource.route('/delete_user', methods=['POST'])
+def delete_user():
+    user_id = current_user.get_id()
+    old_password = request.form['old_password']
+    # must hash old password
+    registered_user = User.query.filter_by(id=user_id, password=old_password).first()
+    if registered_user is None:
+        flash(u"Gammelt passord stemmer ikke")
+        return redirect(url_for('main_resource.profile'))
+    db.session.delete(registered_user)
+    db.session.commit()
+    flash(u"Din bruker er nå slettet")
+    return redirect(url_for('user_resource.login'))
