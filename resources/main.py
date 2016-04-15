@@ -1,8 +1,11 @@
 # coding=utf-8
+import datetime
 from flask import render_template, Blueprint
-from flask.ext.login import login_required
+from flask.ext.login import login_required, current_user
 
 from service.shop import ShopService
+from entities.user import User
+from entities.receipt import RentalReceipt, BuyReceipt
 
 from entities.shared import db
 
@@ -16,11 +19,34 @@ def information():
     return render_template('information.html', page="information")
 
 
-# should have more parameters
 @main_resource.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', page="profile")
+    user_id = current_user.get_id()
+    registered_user = User.query.filter_by(id=user_id).first()
+
+    now = datetime.datetime.utcnow()
+
+    # query those before now vs those after now
+
+    rental_receipts = RentalReceipt.query.filter_by(user_email=registered_user.email).all()
+    # print("receipts:::")
+    # for receipt in rental_receipts:
+    #     print(receipt)
+    #     # print(receipt.buy_time)
+    #     # print(receipt.rental_id)
+    #     print(receipt.get_last_usable_date())
+    # print("end receipts :::")
+    buy_receipts = BuyReceipt.query.filter_by(user_email=registered_user.email).all()
+    # print("buy receipts:::")
+    # for receipt in buy_receipts:
+    #     print(receipt.buy_time)
+    #     print(receipt.buy_id)
+    #     print(receipt.get_last_usable_date())
+    # print("end buy receipts :::")
+
+
+    return render_template('profile.html', page="profile", rental_receipts=rental_receipts, buy_receipts=buy_receipts)
 
 
 # should this be GET only?

@@ -7,7 +7,7 @@ class User(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
     username = db.Column('username', db.String(20), unique=True, index=True)
     password = db.Column('password', db.String(10))
-    email = db.Column('email',db.String(50), unique=True, index=True)
+    email = db.Column('email', db.String(50), unique=True, index=True)
     registered_on = db.Column('registered_on', db.DateTime)
 
     def __init__(self , username ,password , email):
