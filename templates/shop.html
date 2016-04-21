@@ -21,7 +21,6 @@
                             <h2>{{ item.name }}</h2>
                         </div>
                         <div class="panel-body">
-                            <p>Bilde: {{ item.image_url }}</p>
                             <p><strong>Timespris: </strong>{{ item.price_hour }},-</p>
                             <p><strong>Dagspris: </strong>{{ item.price_daily }},-</p>
                             <p><strong>Ukespris: </strong>{{ item.price_weekly }},-</p>
@@ -82,7 +81,11 @@
                     <table>
                         <tr>
                             <td><p>Epostadresse</p></td>
-                            <td><p><input type="email" name="email" class="buyInput" required></p></td>
+                            {% if user %}
+                                <td><p><input type="email" name="email" class="buyInput" value="{{ user.email }}"required></p></td>
+                            {% else %}
+                                <td><p><input type="email" name="email" class="buyInput" required></p></td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><p>Navn på korteier</p></td>
@@ -134,7 +137,11 @@
                     <table>
                         <tr>
                             <td><p>Epostadresse</p></td>
-                            <td><p><input type="email" name="email" class="buyInput" required></p></td>
+                            {% if user %}
+                                <td><p><input type="email" name="email" class="buyInput" value="{{ user.email }}"required></p></td>
+                            {% else %}
+                                <td><p><input type="email" name="email" class="buyInput" required></p></td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><p>Navn på korteier</p></td>

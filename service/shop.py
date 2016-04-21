@@ -1,3 +1,4 @@
+# coding=utf-8
 from entities.rentalitem import RentalItem
 from entities.shopitem import ShopItem
 
@@ -10,7 +11,7 @@ class ShopService:
 
     @staticmethod
     def init_rental_items():
-        # this should come from database: MAX - number of active rentals
+        # TODO: this should come from database: MAX - number of active rentals
         currently_rented_1 = 1
         available_package_1 = 10 - currently_rented_1
         currently_rented_2 = 2
@@ -21,11 +22,16 @@ class ShopService:
         available_package_4 = 8 - currently_rented_4
         currently_rented_5 = 0
         available_package_5 = 11 - currently_rented_5
-        rental_items = [RentalItem("rental1", "Pakke 1", "pakke1.jpg", 100, 200, 300, "Dette er pakke 1", available_package_1),
-                        RentalItem("rental2", "Pakke 2", "pakke2.jpg", 200, 300, 400, "Dette er pakke 2", available_package_2),
-                        RentalItem("rental3", "Pakke 3", "pakke3.jpg", 300, 500, 700, "Dette er pakke 3", available_package_3),
-                        RentalItem("rental4", "Pakke 4", "pakke4.jpg", 1000, 1500, 2000, "Dette er pakke 4", available_package_4),
-                        RentalItem("rental5", "Pakke 5", "pakke5.jpg", 1100, 1600, 2100, "Dette er pakke 5", available_package_5)]
+        rental_items = [RentalItem("rental1", "Basic", "pakke1.jpg", 100, 200, 300,
+                                   "Dette er pakken for nybegynnere", available_package_1),
+                        RentalItem("rental2", "Viderekomne", "pakke2.jpg", 200, 300, 400,
+                                   "Dette er pakken for viderekomne", available_package_2),
+                        RentalItem("rental3", "Alpin pakken", "pakke3.jpg", 300, 500, 700,
+                                   u"Dette er den berømte alpin pakken", available_package_3),
+                        RentalItem("rental4", "Snowboard", "pakke4.jpg", 1000, 1500, 2000,
+                                   "Dette er snowboard pakken", available_package_4),
+                        RentalItem("rental5", "Den ultimate", "pakke5.jpg", 1100, 1600, 2100,
+                                   "Dette er den ultimate pakken", available_package_5)]
         return rental_items
 
     def get_rental_items(self):
@@ -36,7 +42,6 @@ class ShopService:
         shop_items = [ShopItem("shop1", "Dagskort", "heiskort.jpg", 50, 100, "Heiskort for en dag"),
                       ShopItem("shop2", "Ukekort", "heiskort.jpg", 250, 450, "Heiskort for en uke"),
                       ShopItem("shop3", "Sesongkort", "heiskort.jpg", 500, 800, "Heiskort for en sesong")]
-        # consider using different images for days / weeks / season?
         return shop_items
 
     def get_shop_items(self):

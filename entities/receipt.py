@@ -66,3 +66,9 @@ class BuyReceipt(db.Model):
     def __repr__(self):
         return '<user_email %r, buy_id %r, buy_type %r buy_time %r, until_time %r>' % \
                (self.user_email, self.buy_id, self.buy_type, self.buy_time, self.until_time)
+
+
+class ReceiptItem:
+    def __init__(self, receipt, item):
+        self.receipt = receipt
+        self.item = item

@@ -10,7 +10,7 @@ class User(db.Model):
     email = db.Column('email', db.String(50), unique=True, index=True)
     registered_on = db.Column('registered_on', db.DateTime)
 
-    def __init__(self , username ,password , email):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
         self.email = email

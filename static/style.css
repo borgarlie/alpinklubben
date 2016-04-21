@@ -14,3 +14,11 @@ body {
 #modal_rental_footer_info {
     float: left;
 }
+
+.receipt_table {
+    width: 100%;
+}
+
+.receipt_table td {
+    width: 33%;
+}

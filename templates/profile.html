@@ -65,21 +65,109 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Aktive heiskort</div>
         <div class="panel-body">
-            Panel Content
+            <table class="receipt_table">
+                {% if buy_receipts_active %}
+                <tr>
+                    <td><b>Type</b></td><td><b>Kjøpt</b></td><td><b>Utgår</b></td>
+                </tr>
+                {% else %}
+                    Du har ingen aktive heiskort
+                {% endif %}
+                {% for item in buy_receipts_active  %}
+                    <tr>
+                        <td>
+                            {{ item.item.name }}
+                        </td>
+                        <td>
+                            {{ item.receipt.buy_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                        <td>
+                            {{ item.receipt.until_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">Aktive skipakker</div>
-        <div class="panel-body">Panel Content</div>
+        <div class="panel-body">
+            <table class="receipt_table">
+                {% if rental_receipts_active %}
+                <tr>
+                    <td><b>Type</b></td><td><b>Kjøpt</b></td><td><b>Utgår</b></td>
+                </tr>
+                {% else %}
+                    Du har ingen aktive skipakker
+                {% endif %}
+                {% for item in rental_receipts_active  %}
+                    <tr>
+                        <td>
+                            {{ item.item.name }}
+                        </td>
+                        <td>
+                            {{ item.receipt.buy_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                        <td>
+                            {{ item.receipt.until_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">Utgåtte heiskort</div>
-        <div class="panel-body">Panel Content</div>
+        <div class="panel-body">
+            <table class="receipt_table">
+                {% if buy_receipts_not_active %}
+                <tr>
+                    <td><b>Type</b></td><td><b>Kjøpt</b></td><td><b>Utgår</b></td>
+                </tr>
+                {% else %}
+                    Du har ingen utgåtte heiskort
+                {% endif %}
+                {% for item in buy_receipts_not_active  %}
+                    <tr>
+                        <td>
+                            {{ item.item.name }}
+                        </td>
+                        <td>
+                            {{ item.receipt.buy_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                        <td>
+                            {{ item.receipt.until_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">Utgåtte skipakker</div>
-        <div class="panel-body">Panel Content</div>
+        <div class="panel-body">
+            <table class="receipt_table">
+                {% if rental_receipts_not_active %}
+                <tr>
+                    <td><b>Type</b></td><td><b>Kjøpt</b></td><td><b>Utgår</b></td>
+                </tr>
+                {% else %}
+                    Du har ingen utgåtte skipakker
+                {% endif %}
+                {% for item in rental_receipts_not_active  %}
+                    <tr>
+                        <td>
+                            {{ item.item.name }}
+                        </td>
+                        <td>
+                            {{ item.receipt.buy_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                        <td>
+                            {{ item.receipt.until_time.strftime('%d.%m.%Y - %H:%M') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 {% endblock %}
-
-{# Missing: Endring av passord, Sletting av bruker, Aktive kjøp (heiskort og pakker), Utgåtte kjøp (heiskort og pakker) #}

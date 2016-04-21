@@ -5,7 +5,7 @@ from flask.ext.login import login_required, current_user
 
 from service.shop import ShopService
 from entities.user import User
-from entities.receipt import RentalReceipt, BuyReceipt
+from entities.receipt import RentalReceipt, BuyReceipt, ReceiptItem
 
 from entities.shared import db
 
@@ -24,34 +24,43 @@ def information():
 def profile():
     user_id = current_user.get_id()
     registered_user = User.query.filter_by(id=user_id).first()
-
     now = datetime.datetime.utcnow()
+    rental_receipts_active = RentalReceipt.query.filter(RentalReceipt.user_email == registered_user.email,
+                                                        RentalReceipt.until_time >= now).all()
+    rental_receipts_not_active = RentalReceipt.query.filter(RentalReceipt.user_email == registered_user.email,
+                                                            RentalReceipt.until_time < now).all()
+    buy_receipts_active = BuyReceipt.query.filter(BuyReceipt.user_email == registered_user.email,
+                                                  BuyReceipt.until_time >= now).all()
+    buy_receipts_not_active = BuyReceipt.query.filter(BuyReceipt.user_email == registered_user.email,
+                                                      BuyReceipt.until_time < now).all()
 
-    # query those before now vs those after now
+    rental_active = []
+    for item in rental_receipts_active:
+        rental_active.append(ReceiptItem(item, shop_service.get_rental_item(item.rental_id)))
 
-    rental_receipts = RentalReceipt.query.filter_by(user_email=registered_user.email).all()
-    # print("receipts:::")
-    # for receipt in rental_receipts:
-    #     print(receipt)
-    #     # print(receipt.buy_time)
-    #     # print(receipt.rental_id)
-    #     print(receipt.get_last_usable_date())
-    # print("end receipts :::")
-    buy_receipts = BuyReceipt.query.filter_by(user_email=registered_user.email).all()
-    # print("buy receipts:::")
-    # for receipt in buy_receipts:
-    #     print(receipt.buy_time)
-    #     print(receipt.buy_id)
-    #     print(receipt.get_last_usable_date())
-    # print("end buy receipts :::")
+    rental_not_active = []
+    for item in rental_receipts_not_active:
+        rental_not_active.append(ReceiptItem(item, shop_service.get_rental_item(item.rental_id)))
+
+    buy_active = []
+    for item in buy_receipts_active:
+        buy_active.append(ReceiptItem(item, shop_service.get_shop_item(item.buy_id)))
+
+    buy_not_active = []
+    for item in buy_receipts_not_active:
+        buy_not_active.append(ReceiptItem(item, shop_service.get_shop_item(item.buy_id)))
+
+    return render_template('profile.html', page="profile",
+                           rental_receipts_active=rental_active,
+                           rental_receipts_not_active=rental_not_active,
+                           buy_receipts_active=buy_active,
+                           buy_receipts_not_active=buy_not_active)
 
 
-    return render_template('profile.html', page="profile", rental_receipts=rental_receipts, buy_receipts=buy_receipts)
-
-
-# should this be GET only?
-@main_resource.route('/shop', methods=['GET', 'POST'])
+@main_resource.route('/shop')
 def shop():
+    user_id = current_user.get_id()
+    registered_user = User.query.filter_by(id=user_id).first()
     rental_items = shop_service.get_rental_items()
     shop_items = shop_service.get_shop_items()
-    return render_template('shop.html', rental_items=rental_items, shop_items=shop_items, page="shop")
+    return render_template('shop.html', user=registered_user, rental_items=rental_items, shop_items=shop_items, page="shop")
