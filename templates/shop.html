@@ -6,6 +6,10 @@
 {% block head %}
     {{ super() }}
 {% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{url_for('static', filename='shopscripts.js')}}"></script>
+{% endblock %}
 {% block innercontent %}
 
     <div class="container-fluid">

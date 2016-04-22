@@ -4,6 +4,7 @@ from flask.ext.login import LoginManager, current_user
 from flask_bootstrap import Bootstrap
 from flask_appconfig import AppConfig
 
+from resources.chart import chart_resource
 from resources.main import main_resource
 from resources.user import user_resource
 from resources.shop import shop_resource
@@ -20,6 +21,7 @@ app = Flask(__name__)
 app.register_blueprint(user_resource)
 app.register_blueprint(shop_resource)
 app.register_blueprint(main_resource)
+app.register_blueprint(chart_resource)
 
 app.secret_key = SECRET_KEY
 

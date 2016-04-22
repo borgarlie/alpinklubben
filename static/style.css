@@ -6,7 +6,6 @@ body {
     margin-left: 20px;
 }
 
-/* merge these 2 to a class */
 #modal_buy_footer_info {
     float: left;
 }
@@ -21,4 +20,17 @@ body {
 
 .receipt_table td {
     width: 33%;
+}
+
+#myScrollspy {
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    width: 200px;
+}
+
+@media only screen and (max-width: 1550px) {
+    #myScrollspy {
+        display: none;
+    }
 }
