@@ -14,7 +14,7 @@ user_resource = Blueprint('user_resource', __name__, template_folder='templates'
 def register():
     if request.method == 'GET':
         return render_template('register.html', page="register")
-    user = User(request.form['username'], request.form['password'], request.form['email'])
+    user = User(request.form['username'], request.form['password'], request.form['year_born'], request.form['email'])
     db.session.add(user)
     db.session.commit()
     flash('Bruker registrert')

@@ -7,12 +7,14 @@ class User(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
     username = db.Column('username', db.String(20), unique=True, index=True)
     password = db.Column('password', db.String(10))
+    year_born = db.Column('year_born', db.Integer)
     email = db.Column('email', db.String(50), unique=True, index=True)
     registered_on = db.Column('registered_on', db.DateTime)
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password, year_born, email):
         self.username = username
         self.password = password
+        self.year_born = year_born
         self.email = email
         self.registered_on = datetime.datetime.utcnow()
 
