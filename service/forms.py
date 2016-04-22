@@ -1,7 +1,7 @@
-from wtforms import Form, BooleanField, PasswordField, validators, StringField, IntegerField
+from wtforms import Form, validators, StringField, IntegerField
+
 
 # TODO: move this to some other directory
-
 class ShopFormBuy(Form):
     email = StringField('Email Address', [validators.required(), validators.Length(min=6, max=35)])
     name = StringField('Navn pa korteier', [validators.required(), validators.Length(min=2, max=35)])

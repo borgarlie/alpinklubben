@@ -1,26 +1,34 @@
 # coding=utf-8
+import datetime
+
+from entities.receipt import RentalReceipt
 from entities.rentalitem import RentalItem
 from entities.shopitem import ShopItem
 
 
 class ShopService:
-    def __init__(self, database):
-        self.database = database
+    def __init__(self):
         self.rental_items = self.init_rental_items()
         self.shop_items = self.init_shop_items()
 
     @staticmethod
     def init_rental_items():
         # TODO: this should come from database: MAX - number of active rentals
-        currently_rented_1 = 1
+        now = datetime.datetime.utcnow()
+        currently_rented_1 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental1").all())
         available_package_1 = 10 - currently_rented_1
-        currently_rented_2 = 2
-        available_package_2 = 13 - currently_rented_2
-        currently_rented_3 = 1
+        currently_rented_2 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental2").all())
+        available_package_2 = 4 - currently_rented_2
+        currently_rented_3 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental3").all())
         available_package_3 = 17 - currently_rented_3
-        currently_rented_4 = 5
+        currently_rented_4 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental4").all())
         available_package_4 = 8 - currently_rented_4
-        currently_rented_5 = 0
+        currently_rented_5 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental5").all())
         available_package_5 = 11 - currently_rented_5
         rental_items = [RentalItem("rental1", "Basic", "pakke1.jpg", 100, 200, 300,
                                    "Dette er pakken for nybegynnere", available_package_1),
@@ -62,4 +70,3 @@ class ShopService:
                 item = shop_item
                 break
         return item
-

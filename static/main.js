@@ -2,7 +2,7 @@
 
 
 $(document).ready(function () {
-    console.log("testing");
+    console.log("Document is loaded and ready");
 });
 
 

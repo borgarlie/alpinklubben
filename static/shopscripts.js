@@ -136,6 +136,14 @@ $('#buyFormRental').submit(function(e){
                 });
                 purchase_complete_rental = true;
             }
+            else if (data == "none") {
+                modal_rental.find('.modal-body').html("Det er dessverre ingen pakker av denne typen igjen.");
+                modal_rental.find('.modal-footer').html("<button type='button' id='closeBuyFormRental' class='btn btn-default' data-dismiss='modal'>Avslutt</button>");
+                $('#closeBuyFormRental').click(function(e) {
+                    $('#shop_modal_rental').modal('hide');
+                });
+                purchase_complete_rental = true;
+            }
             else {
                 modal_rental.find('#modal_rental_footer_info').html("Noe info mangler eller stemmer ikke");
             }

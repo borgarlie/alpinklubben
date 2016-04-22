@@ -11,8 +11,6 @@ from entities.shared import db
 
 main_resource = Blueprint('main_resource', __name__, template_folder='templates')
 
-shop_service = ShopService(db)
-
 
 @main_resource.route('/information')
 def information():
@@ -22,6 +20,7 @@ def information():
 @main_resource.route('/profile')
 @login_required
 def profile():
+    shop_service = ShopService()
     user_id = current_user.get_id()
     registered_user = User.query.filter_by(id=user_id).first()
     now = datetime.datetime.utcnow()
@@ -59,6 +58,7 @@ def profile():
 
 @main_resource.route('/shop')
 def shop():
+    shop_service = ShopService()
     user_id = current_user.get_id()
     registered_user = User.query.filter_by(id=user_id).first()
     rental_items = shop_service.get_rental_items()

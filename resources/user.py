@@ -1,6 +1,6 @@
 # coding=utf-8
 from flask.ext.login import logout_user, login_user, current_user
-from flask import redirect, url_for, request, flash, Blueprint, render_template, session
+from flask import redirect, url_for, request, flash, Blueprint, render_template
 
 from entities.shared import db
 from entities.user import User
