@@ -1,5 +1,7 @@
 from flask import abort, jsonify, request, Blueprint
+from flask.ext.login import current_user
 
+from entities.user import User
 from service.forms import ShopFormRental, ShopFormBuy
 from entities.receipt import BuyReceipt, RentalReceipt
 
@@ -13,17 +15,16 @@ shop_resource = Blueprint('shop_resource', __name__, template_folder='templates'
 def get_menu_item_buy(menu_id):
     shop_service = ShopService()
     item = shop_service.get_shop_item(menu_id)
-    print(item)
+    discount = check_for_discount()
     if item is None:
         abort(404)
-    return jsonify({'item': item.serialize()})
+    return jsonify({'item': item.serialize(), 'discount' : discount})
 
 
 @shop_resource.route('/api/menu-item-rental/<string:menu_id>', methods=['GET'])
 def get_menu_item_rental(menu_id):
     shop_service = ShopService()
     item = shop_service.get_rental_item(menu_id)
-    print(item)
     if item is None:
         abort(404)
     return jsonify({'item': item.serialize()})
@@ -31,22 +32,17 @@ def get_menu_item_rental(menu_id):
 
 @shop_resource.route('/api/menu-item-buy/item/<string:menu_id>', methods=['POST'])
 def purchase_item_buy(menu_id):
-    print(menu_id)
-    print(request.form)
     form = ShopFormBuy(request.form)
     if form.validate():
         receipt = BuyReceipt(request.form['email'], menu_id, request.form['priceOpt'])
         db.session.add(receipt)
         db.session.commit()
-        # still return false if the insertion fails
         return "true"
     return "false"
 
 
 @shop_resource.route('/api/menu-item-rental/item/<string:menu_id>', methods=['POST'])
 def purchase_item_rental(menu_id):
-    print(menu_id)
-    print(request.form)
     form = ShopFormRental(request.form)
     if form.validate():
         shop_service = ShopService()
@@ -55,7 +51,15 @@ def purchase_item_rental(menu_id):
                                     request.form['priceOptNum'])
             db.session.add(receipt)
             db.session.commit()
-            # still return false if the insertion fails
             return "true"
         return "none"
+    return "false"
+
+
+def check_for_discount():
+    user_id = current_user.get_id()
+    registered_user = User.query.filter_by(id=user_id).first()
+    number_of_family_members = User.query.filter(User.family_name == registered_user.family_name).count()
+    if number_of_family_members > 1:
+        return "true"
     return "false"

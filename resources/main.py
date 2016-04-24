@@ -53,7 +53,7 @@ def profile():
                            rental_receipts_active=rental_active,
                            rental_receipts_not_active=rental_not_active,
                            buy_receipts_active=buy_active,
-                           buy_receipts_not_active=buy_not_active)
+                           buy_receipts_not_active=buy_not_active, family_name=registered_user.family_name)
 
 
 @main_resource.route('/shop')

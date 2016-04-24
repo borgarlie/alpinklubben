@@ -7,6 +7,29 @@
     {{ super() }}
 {% endblock %}
 {% block innercontent %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Innmelding i familie</div>
+        <div class="panel-body">
+            Familier med mer enn et medlem får 10% rabatt på alle heiskort!
+            {% if family_name %}
+                <br>Du er medlem av familien: {{ family_name }}
+            {% endif %}
+            <form action="/register_family" method=post class="form-horizontal">
+                <div class="control-group">
+                    <div class="controls">
+                      <input type="text" id="family_name" name="family_name" class="input-xlarge"
+                        placeholder="Familenavn" value="{{ request.form.family_name }}"
+                        required>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn btn-success">Registrer</button>
+                    </div>
+                </div>
+              </form>
+        </div>
+    </div>
     <div class="panel panel-info">
         <div class="panel-heading">Bytting av passord</div>
         <div class="panel-body">

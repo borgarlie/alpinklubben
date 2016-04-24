@@ -73,6 +73,7 @@ $('.open-shopDialog-buy').click(function(){
         success: function(data){
             console.log(data);
             var item = data.item;
+            var discount = data.discount;
             modal_buy.find('.modal-body #name').html(item.name);
             var priceOption = "<select name='priceOpt' id='priceOpt'><option value='adult'>Voksen</option>";
             priceOption += "<option value='child'>Barn</option>" ;
@@ -88,6 +89,10 @@ $('.open-shopDialog-buy').click(function(){
                 }
                 else {
                     price = item.price_adult
+                }
+                if (discount == "true") {
+                    price = price * 0.9;
+                    modal_buy.find('.modal-body #discount').html("(10% Familierabatt)");
                 }
                 modal_buy.find('.modal-body #price').html(price);
             };

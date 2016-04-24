@@ -9,13 +9,15 @@ class User(db.Model):
     password = db.Column('password', db.String)
     year_born = db.Column('year_born', db.Integer)
     email = db.Column('email', db.String(50), unique=True, index=True)
+    family_name = db.Column('family_name', db.String(20))
     registered_on = db.Column('registered_on', db.DateTime)
 
-    def __init__(self, username, password, year_born, email):
+    def __init__(self, username, password, year_born, email, family_name):
         self.username = username
         self.password = password
         self.year_born = year_born
         self.email = email
+        self.family_name = family_name
         self.registered_on = datetime.datetime.utcnow()
 
     def is_authenticated(self):

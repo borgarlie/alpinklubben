@@ -18,7 +18,8 @@ def register():
     if request.method == 'GET':
         return render_template('register.html', page="register")
     pw_hash = generate_password_hash(request.form['password'])
-    user = User(request.form['username'], pw_hash, request.form['year_born'], request.form['email'])
+    user = User(request.form['username'], pw_hash, request.form['year_born'], request.form['email'],
+                request.form['family_name'])
     try:
         db.session.add(user)
         db.session.commit()
@@ -81,3 +82,13 @@ def delete_user():
     db.session.commit()
     flash(u"Din bruker er nå slettet")
     return redirect(url_for('user_resource.login'))
+
+
+@user_resource.route('/register_family', methods=['POST'])
+def register_family():
+    user_id = current_user.get_id()
+    registered_user = User.query.filter_by(id=user_id).first()
+    registered_user.family_name = request.form['family_name']
+    db.session.commit()
+    flash(u"Du er nå registrert i en familie!")
+    return redirect(url_for('main_resource.profile'))
