@@ -9,6 +9,6 @@ setup(
     author='Borgar',
     author_email='',
     description='', requires=['flask', 'flask_appconfig', 'flask_bootstrap', 'flask-login', 'flask-sqlalchemy',
-                              'wtforms']
+                              'wtforms', 'Flask-Bcrypt']
 )
 

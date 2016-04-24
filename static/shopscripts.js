@@ -109,6 +109,7 @@ $('#buyForm').submit(function(e){
                 modal_buy.find('.modal-footer').html("<button type='button' id='closeBuyForm' class='btn btn-default' data-dismiss='modal'>Avslutt</button>");
                 $('#closeBuyForm').click(function(e) {
                     $('#shop_modal_buy').modal('hide');
+                    location.reload();
                 });
                 purchase_complete_buy = true;
             }
@@ -133,6 +134,7 @@ $('#buyFormRental').submit(function(e){
                 modal_rental.find('.modal-footer').html("<button type='button' id='closeBuyFormRental' class='btn btn-default' data-dismiss='modal'>Avslutt</button>");
                 $('#closeBuyFormRental').click(function(e) {
                     $('#shop_modal_rental').modal('hide');
+                    location.reload();
                 });
                 purchase_complete_rental = true;
             }

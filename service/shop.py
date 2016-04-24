@@ -15,20 +15,20 @@ class ShopService:
     def init_rental_items():
         # TODO: this should come from database: MAX - number of active rentals
         now = datetime.datetime.utcnow()
-        currently_rented_1 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
-                                                            RentalReceipt.rental_id == "rental1").all())
+        currently_rented_1 = RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental1").count()
         available_package_1 = 10 - currently_rented_1
-        currently_rented_2 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
-                                                            RentalReceipt.rental_id == "rental2").all())
+        currently_rented_2 = RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental2").count()
         available_package_2 = 4 - currently_rented_2
-        currently_rented_3 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
-                                                            RentalReceipt.rental_id == "rental3").all())
+        currently_rented_3 = RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental3").count()
         available_package_3 = 17 - currently_rented_3
-        currently_rented_4 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
-                                                            RentalReceipt.rental_id == "rental4").all())
+        currently_rented_4 = RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental4").count()
         available_package_4 = 8 - currently_rented_4
-        currently_rented_5 = len(RentalReceipt.query.filter(RentalReceipt.until_time >= now,
-                                                            RentalReceipt.rental_id == "rental5").all())
+        currently_rented_5 = RentalReceipt.query.filter(RentalReceipt.until_time >= now,
+                                                            RentalReceipt.rental_id == "rental5").count()
         available_package_5 = 11 - currently_rented_5
         rental_items = [RentalItem("rental1", "Basic", "pakke1.jpg", 100, 200, 300,
                                    "Dette er pakken for nybegynnere", available_package_1),
