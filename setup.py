@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='alpinklubben',
@@ -8,7 +8,7 @@ setup(
     license='',
     author='Borgar',
     author_email='',
-    description='', requires=['flask', 'flask_appconfig', 'flask_bootstrap', 'flask-login', 'flask-sqlalchemy',
-                              'wtforms', 'Flask-Bcrypt']
+    description='',
+    install_requires=['flask', 'flask_appconfig', 'flask_bootstrap', 'Flask_Login', 'flask_sqlalchemy', 'wtforms']
 )
 
