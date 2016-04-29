@@ -1,11 +1,10 @@
 from flask import abort, jsonify, request, Blueprint
 from flask.ext.login import current_user
 
-from entities.user import User
-from service.forms import ShopFormRental, ShopFormBuy
 from entities.receipt import BuyReceipt, RentalReceipt
-
 from entities.shared import db
+from entities.user import User
+from forms.forms import ShopFormRental, ShopFormBuy
 from service.shop import ShopService
 
 shop_resource = Blueprint('shop_resource', __name__, template_folder='templates')
